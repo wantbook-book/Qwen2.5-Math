@@ -1,0 +1,88 @@
+{
+    "idx": 0,
+    "question": "What is $10.0000198\\cdot 5.9999985401\\cdot 6.9999852$ to the nearest whole number?",
+    "gt_cot": "Notice that $10.00001988$ is very close to $10$, $5.9999985401$ is very close to $6$ and $6.9999852$ is very close to $7$. Because the given numbers are all so close to integers, we're unlikely to go wrong by rounding before multiplying. We get $$10\\cdot6\\cdot7=\\boxed{420}.$$If we multiplied the given numbers with a calculator we would get $$6.9999852\\cdot5.9999985401\\cdot10.00001988=419.999844...$$which would still round to $420$.",
+    "gt": "420",
+    "level": "Level 3",
+    "solution": "Notice that $10.00001988$ is very close to $10$, $5.9999985401$ is very close to $6$ and $6.9999852$ is very close to $7$. Because the given numbers are all so close to integers, we're unlikely to go wrong by rounding before multiplying. We get $$10\\cdot6\\cdot7=\\boxed{420}.$$If we multiplied the given numbers with a calculator we would get $$6.9999852\\cdot5.9999985401\\cdot10.00001988=419.999844...$$which would still round to $420$.",
+    "answer": "420",
+    "code": [
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each number to a simpler form that is easier to work with. Since each of these numbers is very close to a whole number, we can approximate them as follows:\n\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we can multiply these approximated values together:\n\n\\[\n10 \\cdot 6 \\cdot 7\n\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[\n10 \\cdot 6 = 60\n\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[\n60 \\cdot 7 = 420\n\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each of the numbers to simplify the calculation. Each of these numbers is very close to a whole number, so we can approximate them as follows:\n\n\\[10.0000198 \\approx 10,\\]\n\\[5.9999985401 \\approx 6,\\]\n\\[6.9999852 \\approx 7.\\]\n\nNow, we multiply these approximated values together:\n\n\\[10 \\cdot 6 \\cdot 7.\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[10 \\cdot 6 = 60.\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[60 \\cdot 7 = 420.\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each number to a simpler form that is easier to work with. Since each number is very close to a whole number, we can approximate them as follows:\n\n\\[10.0000198 \\approx 10,\\]\n\\[5.9999985401 \\approx 6,\\]\n\\[6.9999852 \\approx 7.\\]\n\nNow, we need to multiply these approximated values together:\n\n\\[10 \\cdot 6 \\cdot 7.\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[10 \\cdot 6 = 60.\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[60 \\cdot 7 = 420.\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each number to a more manageable form. Since each number is very close to a whole number, we can approximate them as follows:\n\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we need to multiply these approximated values together:\n\n\\[10 \\cdot 6 \\cdot 7\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[10 \\cdot 6 = 60\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[60 \\cdot 7 = 420\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each number to the nearest whole number first. This is because the decimal parts of each number are very small, and they will not significantly affect the product when we are rounding to the nearest whole number.\n\nHere are the approximations:\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we multiply these approximated values together:\n\\[10 \\cdot 6 \\cdot 7\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\\[10 \\cdot 6 = 60\\]\n\nNext, we multiply the result by \\(7\\):\n\\[60 \\cdot 7 = 420\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each of the numbers to the nearest whole number. The numbers are very close to 10, 6, and 7, respectively. Therefore, we can approximate the expression as follows:\n\n\\[\n10.0000198 \\approx 10\n\\]\n\\[\n5.9999985401 \\approx 6\n\\]\n\\[\n6.9999852 \\approx 7\n\\]\n\nNow, we need to calculate the product of these approximated values:\n\n\\[\n10 \\cdot 6 \\cdot 7\n\\]\n\nFirst, we calculate \\(10 \\cdot 6\\):\n\n\\[\n10 \\cdot 6 = 60\n\\]\n\nNext, we multiply the result by 7:\n\n\\[\n60 \\cdot 7 = 420\n\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each of the numbers to a simpler form that is easier to work with. Since each of these numbers is very close to a whole number, we can approximate them as follows:\n\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we multiply these approximated values together:\n\n\\[\n10 \\cdot 6 \\cdot 7\n\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[\n10 \\cdot 6 = 60\n\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[\n60 \\cdot 7 = 420\n\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each of the numbers to a more manageable form. Since each of the numbers is very close to a whole number, we can approximate them as follows:\n\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we multiply these approximated values together:\n\n\\[\n10 \\cdot 6 \\cdot 7\n\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[\n10 \\cdot 6 = 60\n\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[\n60 \\cdot 7 = 420\n\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\)."
+    ],
+    "pred": [
+        "420",
+        "420",
+        "420",
+        "420",
+        "420",
+        "420",
+        "420",
+        "420"
+    ],
+    "report": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "score": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+    ],
+    "system": "Please reason step by step, and put your final answer within \\boxed{}.",
+    "query": "What is $10.0000198\\cdot 5.9999985401\\cdot 6.9999852$ to the nearest whole number?",
+    "response": [
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each number to a simpler form that is easier to work with. Since each of these numbers is very close to a whole number, we can approximate them as follows:\n\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we can multiply these approximated values together:\n\n\\[\n10 \\cdot 6 \\cdot 7\n\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[\n10 \\cdot 6 = 60\n\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[\n60 \\cdot 7 = 420\n\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each of the numbers to simplify the calculation. Each of these numbers is very close to a whole number, so we can approximate them as follows:\n\n\\[10.0000198 \\approx 10,\\]\n\\[5.9999985401 \\approx 6,\\]\n\\[6.9999852 \\approx 7.\\]\n\nNow, we multiply these approximated values together:\n\n\\[10 \\cdot 6 \\cdot 7.\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[10 \\cdot 6 = 60.\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[60 \\cdot 7 = 420.\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each number to a simpler form that is easier to work with. Since each number is very close to a whole number, we can approximate them as follows:\n\n\\[10.0000198 \\approx 10,\\]\n\\[5.9999985401 \\approx 6,\\]\n\\[6.9999852 \\approx 7.\\]\n\nNow, we need to multiply these approximated values together:\n\n\\[10 \\cdot 6 \\cdot 7.\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[10 \\cdot 6 = 60.\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[60 \\cdot 7 = 420.\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each number to a more manageable form. Since each number is very close to a whole number, we can approximate them as follows:\n\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we need to multiply these approximated values together:\n\n\\[10 \\cdot 6 \\cdot 7\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[10 \\cdot 6 = 60\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[60 \\cdot 7 = 420\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each number to the nearest whole number first. This is because the decimal parts of each number are very small, and they will not significantly affect the product when we are rounding to the nearest whole number.\n\nHere are the approximations:\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we multiply these approximated values together:\n\\[10 \\cdot 6 \\cdot 7\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\\[10 \\cdot 6 = 60\\]\n\nNext, we multiply the result by \\(7\\):\n\\[60 \\cdot 7 = 420\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each of the numbers to the nearest whole number. The numbers are very close to 10, 6, and 7, respectively. Therefore, we can approximate the expression as follows:\n\n\\[\n10.0000198 \\approx 10\n\\]\n\\[\n5.9999985401 \\approx 6\n\\]\n\\[\n6.9999852 \\approx 7\n\\]\n\nNow, we need to calculate the product of these approximated values:\n\n\\[\n10 \\cdot 6 \\cdot 7\n\\]\n\nFirst, we calculate \\(10 \\cdot 6\\):\n\n\\[\n10 \\cdot 6 = 60\n\\]\n\nNext, we multiply the result by 7:\n\n\\[\n60 \\cdot 7 = 420\n\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each of the numbers to a simpler form that is easier to work with. Since each of these numbers is very close to a whole number, we can approximate them as follows:\n\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we multiply these approximated values together:\n\n\\[\n10 \\cdot 6 \\cdot 7\n\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[\n10 \\cdot 6 = 60\n\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[\n60 \\cdot 7 = 420\n\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\).",
+        "To find the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number, we can approximate each of the numbers to a more manageable form. Since each of the numbers is very close to a whole number, we can approximate them as follows:\n\n- \\(10.0000198 \\approx 10\\)\n- \\(5.9999985401 \\approx 6\\)\n- \\(6.9999852 \\approx 7\\)\n\nNow, we multiply these approximated values together:\n\n\\[\n10 \\cdot 6 \\cdot 7\n\\]\n\nFirst, we multiply \\(10\\) and \\(6\\):\n\n\\[\n10 \\cdot 6 = 60\n\\]\n\nNext, we multiply the result by \\(7\\):\n\n\\[\n60 \\cdot 7 = 420\n\\]\n\nTherefore, the value of \\(10.0000198 \\cdot 5.9999985401 \\cdot 6.9999852\\) to the nearest whole number is \\(\\boxed{420}\\)."
+    ],
+    "history": [],
+    "pred_score": [
+        [
+            3.546875
+        ],
+        [
+            3.515625
+        ],
+        [
+            3.46875
+        ],
+        [
+            3.46875
+        ],
+        [
+            3.265625
+        ],
+        [
+            3.328125
+        ],
+        [
+            3.5
+        ],
+        [
+            3.4375
+        ]
+    ]
+}
