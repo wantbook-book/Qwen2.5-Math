@@ -187,6 +187,9 @@ def main(llm, tokenizer, data_name, args):
         example["gt_ans"] = gt_ans
         full_prompt = construct_prompt(example, data_name, args)
 
+        # if data_name in ['aqua', 'mmlu_stem']:
+        #     full_prompt += '\n' + 'This is a multiple-choice math problem. Please think step by step and finally select the final correct option from the given answer choices.\n'
+
         if idx == args.start:
             print(full_prompt)
 
@@ -265,14 +268,17 @@ def main(llm, tokenizer, data_name, args):
         # get all outputs
         prompts = [item[1] for item in current_prompts]
         if args.use_vllm:
+            # 避免重复生成
+            # 先生成第一步
+            
             outputs = llm.generate(
                 prompts,
                 SamplingParams(
                     temperature=args.temperature,
                     top_p=args.top_p,
-                    max_tokens=args.max_tokens_per_call,
+                    max_tokens=128,
                     n=1,
-                    stop=stop_words,
+                    stop=stop_words+['## Step 2:'],
                     stop_token_ids=(
                         [151645, 151643]
                         if "qwen2" in args.model_name_or_path.lower()
@@ -280,11 +286,58 @@ def main(llm, tokenizer, data_name, args):
                     ),
                 ),
             )
-
             outputs = sorted(
                 outputs, key=lambda x: int(x.request_id)
             )  # sort outputs by request_id
-            outputs = [output.outputs[0].text for output in outputs]
+
+            step1s = [output.outputs[0].text for output in outputs]
+            # 生成剩下的步骤，停止在下一次又生成第一步
+            outputs = llm.generate(
+                [prompt + step1 for prompt, step1 in zip(prompts, step1s)],
+                SamplingParams(
+                    temperature=args.temperature,
+                    top_p=args.top_p,
+                    max_tokens=args.max_tokens_per_call,
+                    n=1,
+                    stop=stop_words+['## Step 1:'],
+                    stop_token_ids=(
+                        [151645, 151643]
+                        if "qwen2" in args.model_name_or_path.lower()
+                        else None
+                    ),
+                ),
+            )
+            outputs = sorted(
+                outputs, key=lambda x: int(x.request_id)
+            )  # sort outputs by request_id
+            steps_left = [output.outputs[0].text for output in outputs]
+
+            if data_name in ["mmlu_stem", "aqua"]:
+                outputs = llm.generate(
+                    [prompt + step1 + step_left+"So let's choose the correct answer choice: " for prompt, step1, step_left in zip(prompts, step1s, steps_left)],
+                    SamplingParams(
+                        temperature=args.temperature,
+                        top_p=args.top_p,
+                        max_tokens=5,
+                        n=1,
+                        stop=stop_words,
+                        stop_token_ids=(
+                            [151645, 151643]
+                            if "qwen2" in args.model_name_or_path.lower()
+                            else None
+                        ),
+                    ),
+                )
+                outputs = sorted(
+                    outputs, key=lambda x: int(x.request_id)
+                )
+                answer_choices = [output.outputs[0].text for output in outputs]
+                outputs = [step1 + step_left + answer_choice for step1, step_left, answer_choice in zip(step1s, steps_left, answer_choices)]
+            else:
+                outputs = [step1 + step_left for step1, step_left in zip(step1s, steps_left)]
+
+            
+            # outputs = [output.outputs[0].text for output in outputs]
         else:
             outputs = generate_completions(
                 model=llm,
@@ -344,6 +397,7 @@ def main(llm, tokenizer, data_name, args):
     for i in range(len(input_prompts)):
         _, end_prompt = end_prompts[i]
         code = end_prompt.split(input_prompts[i])[-1].strip()
+        # 讲道理 stop words不会生成，
         for stop_word in stop_words:
             if stop_word in code:
                 code = code.split(stop_word)[0].strip()

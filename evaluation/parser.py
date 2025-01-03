@@ -368,12 +368,12 @@ def choice_answer_clean(pred: str):
     pred = pred.strip("\n")
 
     # Determine if this is ICL, if so, use \n\n to split the first chunk.
-    ICL = False
-    for trigger in direct_answer_trigger_for_fewshot:
-        if pred.count(trigger) > 1:
-            ICL = True
-    if ICL:
-        pred = pred.split("\n\n")[0]
+    # ICL = False
+    # for trigger in direct_answer_trigger_for_fewshot:
+    #     if pred.count(trigger) > 1:
+    #         ICL = True
+    # if ICL:
+    #     pred = pred.split("\n\n")[0]
 
     # Split the trigger to find the answer.
     preds = re.split("|".join(direct_answer_trigger_for_fewshot), pred)
