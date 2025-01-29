@@ -94,10 +94,10 @@ def eval_maj_k_metrics(data_path, k=8):
 
 if __name__ == "__main__":
     data_path = "./data/eval_rm_maj_example/math_cot_100.jsonl"
-    data_path = "/pubshare/fwk/code/Qwen2.5-Math/evaluation/outputs/pubshare/fwk/orlhf_checkpoints/checkpoint/llama3-1b-porm_grpo_n16/math_eval/math/_with_pred_score.jsonl"
+    data_path = "/pubshare/fwk/code/Qwen2.5-Math/evaluation/outputs/home/jovyan/share/LLMAgent/model/Llama-3.2-1B-Instruct/math_bon20/math/math500_pure_-1_seed0_t0.0_s0_e-1.jsonl"
 
-    candidate = 8
+    candidate = 20
     all_result = {}
     all_result[f'maj@{candidate}'] = eval_maj_k_metrics(data_path, k=candidate)
-    all_result[f'rm@{candidate}'] = eval_rm_k_metrics(data_path, k=candidate)
+    # all_result[f'rm@{candidate}'] = eval_rm_k_metrics(data_path, k=candidate)
     print(all_result)

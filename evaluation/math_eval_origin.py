@@ -11,14 +11,12 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 from evaluate import evaluate
 from utils import set_seed, load_jsonl, save_jsonl, construct_prompt
-from parser import *
+from parser_origin import *
 from trajectory import *
 from data_loader import load_data
 from python_executor import PythonExecutor
 from model_utils import load_hf_lm_and_tokenizer, generate_completions
-import debugpy
-# debugpy.listen(5678)
-# debugpy.wait_for_client()
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -53,10 +51,7 @@ def parse_args():
         action="store_true",
         help="Few shot for multiple-choice questions, zero shot for others.",
     )
-    # checkpoint
     parser.add_argument("--checkpoint_suffix", action="store_true", default=False)
-    parser.add_argument("--prompt_file", default="", type=str)
-
     args = parser.parse_args()
     args.top_p = (
         1 if args.temperature == 0 else args.top_p
@@ -86,8 +81,6 @@ def prepare_data(data_name, args):
     out_file_prefix = f"{args.split}_{args.prompt_type}_{args.num_test_sample}_seed{args.seed}_t{args.temperature}"
     if args.checkpoint_suffix:
         out_file_prefix += f"_cp{args.model_name_or_path.split('/')[-1]}"
-    if args.prompt_file:
-        out_file_prefix += f"_pf_{args.prompt_file.split('/')[-1].replace('.txt', '')}"
     output_dir = args.output_dir
     if not os.path.exists(output_dir):
         output_dir = f"outputs/{output_dir}"
@@ -125,10 +118,7 @@ def setup(args):
             pipeline_parallel_size=args.pipeline_parallel_size,
             trust_remote_code=True,
         )
-        # tokenizer = None
-        tokenizer = AutoTokenizer.from_pretrained(
-            args.model_name_or_path
-        )
+        tokenizer = None
         if args.apply_chat_template:
             tokenizer = AutoTokenizer.from_pretrained(
                 args.model_name_or_path, trust_remote_code=True
@@ -167,15 +157,8 @@ def is_multi_choice(answer):
             return False
     return True
 
-def read_txt(file_path):
-    assert str(file_path).endswith(".txt")
-    with open(file_path, "r", encoding="utf-8") as f:
-        data = f.read()
-    return data
 
 def main(llm, tokenizer, data_name, args):
-    if args.prompt_file:
-        PROMPT = read_txt(args.prompt_file)
     examples, processed_samples, out_file = prepare_data(data_name, args)
     print("=" * 50)
     print("data:", data_name, " ,remain samples:", len(examples))
@@ -199,9 +182,6 @@ def main(llm, tokenizer, data_name, args):
         gt_cot, gt_ans = parse_ground_truth(example, data_name)
         example["gt_ans"] = gt_ans
         full_prompt = construct_prompt(example, data_name, args)
-
-        # if data_name in ['aqua', 'mmlu_stem']:
-        #     full_prompt += '\n' + 'This is a multiple-choice math problem. Please think step by step and finally select the final correct option from the given answer choices.\n'
 
         if idx == args.start:
             print(full_prompt)
@@ -279,44 +259,16 @@ def main(llm, tokenizer, data_name, args):
             break
 
         # get all outputs
-        if args.prompt_file:
-            prompts = [PROMPT+item[1] for item in current_prompts]
-        else:
-            prompts = [item[1] for item in current_prompts]
-        # prompts = ['what is your name?', "how old are you", "Hello! What are you doing now?"]
+        prompts = [item[1] for item in current_prompts]
         if args.use_vllm:
-            # 避免重复生成
-            # 先生成第一步
-            
             outputs = llm.generate(
                 prompts,
                 SamplingParams(
                     temperature=args.temperature,
                     top_p=args.top_p,
-                    max_tokens=128,
-                    n=1,
-                    stop=stop_words+['## Step 2:'],
-                    stop_token_ids=(
-                        [151645, 151643]
-                        if "qwen2" in args.model_name_or_path.lower()
-                        else None
-                    ),
-                ),
-            )
-            # outputs = sorted(
-            #     outputs, key=lambda x: int(x.request_id)
-            # )  # sort outputs by request_id
-
-            step1s = [output.outputs[0].text for output in outputs]
-            # 生成剩下的步骤，停止在下一次又生成第一步
-            outputs = llm.generate(
-                [prompt + step1 for prompt, step1 in zip(prompts, step1s)],
-                SamplingParams(
-                    temperature=args.temperature,
-                    top_p=args.top_p,
                     max_tokens=args.max_tokens_per_call,
                     n=1,
-                    stop=stop_words+['## Step 1:'],
+                    stop=stop_words,
                     stop_token_ids=(
                         [151645, 151643]
                         if "qwen2" in args.model_name_or_path.lower()
@@ -324,37 +276,11 @@ def main(llm, tokenizer, data_name, args):
                     ),
                 ),
             )
-            # outputs = sorted(
-            #     outputs, key=lambda x: int(x.request_id)
-            # )  # sort outputs by request_id
-            steps_left = [output.outputs[0].text for output in outputs]
 
-            if data_name in ["mmlu_stem", "aqua", "sat_math"]:
-                outputs = llm.generate(
-                    [prompt + step1 + step_left+"\nSo let's choose the correct answer choice: " for prompt, step1, step_left in zip(prompts, step1s, steps_left)],
-                    SamplingParams(
-                        temperature=args.temperature,
-                        top_p=args.top_p,
-                        max_tokens=5,
-                        n=1,
-                        stop=stop_words,
-                        stop_token_ids=(
-                            [151645, 151643]
-                            if "qwen2" in args.model_name_or_path.lower()
-                            else None
-                        ),
-                    ),
-                )
-                # outputs = sorted(
-                #     outputs, key=lambda x: int(x.request_id)
-                # )
-                answer_choices = [output.outputs[0].text for output in outputs]
-                outputs = [step1 + step_left +"So let's choose the correct answer choice: "+ answer_choice for step1, step_left, answer_choice in zip(step1s, steps_left, answer_choices)]
-            else:
-                outputs = [step1 + step_left for step1, step_left in zip(step1s, steps_left)]
-
-            
-            # outputs = [output.outputs[0].text for output in outputs]
+            outputs = sorted(
+                outputs, key=lambda x: int(x.request_id)
+            )  # sort outputs by request_id
+            outputs = [output.outputs[0].text for output in outputs]
         else:
             outputs = generate_completions(
                 model=llm,
@@ -367,10 +293,6 @@ def main(llm, tokenizer, data_name, args):
 
         assert len(outputs) == len(current_prompts)
 
-        outputs_token_counter = []
-        for output in outputs:
-            output_ids = tokenizer.encode(output, add_special_tokens=False)
-            outputs_token_counter.append(len(output_ids))
         # process all outputs
         remain_prompts = []
         remain_codes = []
@@ -418,7 +340,6 @@ def main(llm, tokenizer, data_name, args):
     for i in range(len(input_prompts)):
         _, end_prompt = end_prompts[i]
         code = end_prompt.split(input_prompts[i])[-1].strip()
-        # 讲道理 stop words不会生成，
         for stop_word in stop_words:
             if stop_word in code:
                 code = code.split(stop_word)[0].strip()
@@ -464,8 +385,6 @@ def main(llm, tokenizer, data_name, args):
         prompt_type=args.prompt_type,
         execute=True,
     )
-    for sample_i, sample in enumerate(all_samples):
-        sample['token_counter'] = outputs_token_counter[sample_i]
 
     # save outputs
     if len(processed_samples) < len(all_samples) and args.save_outputs:
@@ -475,7 +394,6 @@ def main(llm, tokenizer, data_name, args):
     result_json["time_use_in_minite"] = (
         f"{int(time_use // 60)}:{int(time_use % 60):02d}"
     )
-    result_json['avg_token_counter'] = sum(outputs_token_counter) / len(outputs_token_counter)
 
     with open(
         out_file.replace(".jsonl", f"_{args.prompt_type}_metrics.json"), "w"
